@@ -105,12 +105,8 @@ lime.animation.Animation.prototype.getEasing = function() {
  */
 lime.animation.Animation.prototype.addTarget = function(target) {
     goog.array.insert(this.targets, target);
-    goog.array.insert(this.initTargets_, target);
-
-    var uid = goog.getUid(target);
-    this.targetProp_[uid] = this.makeTargetProp(target);
-
-    lime.animation.actionManager.register(this, target);
+    
+    this.initTarget(target);
 
     return this;
 };
@@ -174,7 +170,8 @@ lime.animation.Animation.prototype.makeTargetProp = function(target) {
 lime.animation.Animation.prototype.getTargetProp = function(target) {
     var uid = goog.getUid(target);
     if (!goog.isDef(this.targetProp_[uid])) {
-	this.targetProp_[uid] = this.makeTargetProp(target);
+    	this.initTarget(target);
+    	//this.targetProp_[uid] = this.makeTargetProp(target);
     }
     return this.targetProp_[uid];
 };
@@ -184,12 +181,19 @@ lime.animation.Animation.prototype.getTargetProp = function(target) {
  * @param {lime.Node} target Target node.
  */
 lime.animation.Animation.prototype.initTarget = function(target) {
-    //todo: check if all this status_ mess can be removed now
+	lime.animation.actionManager.register(this, target);
+    goog.array.insert(this.initTargets_, target);
+
+    var uid = goog.getUid(target);
+    this.targetProp_[uid] = this.makeTargetProp(target);
+
+	//todo: check if all this status_ mess can be removed now
     this.status_ = 1;
 
     if(this.speed_ && !this.speedCalcDone_ && this.calcDurationFromSpeed_){
         this.calcDurationFromSpeed_();
     }
+
 };
 
 /**
