@@ -20,7 +20,7 @@ benchmark.start = function() {
 	benchmark.director = new lime.Director(document.body, benchmark.WIDTH,
 			benchmark.HEIGHT);
 	benchmark.director.makeMobileWebAppCapable();
-	benchmark.director.setDisplayFPS(false);
+	//benchmark.director.setDisplayFPS(false);
 
 	benchmark.loadMenu();
 };
@@ -64,28 +64,25 @@ benchmark.loadMenu = function() {
 
 	btn = benchmark.makeButton('Test Multi-touch').setPosition(0, 100);
 	goog.events.listen(btn, 'click', function(e) {
-		msg.setText('1');
 	        menu.runAction(moveRight);
 	});
 	btns1.appendChild(btn);
 
 	var btn = benchmark.makeButton('Test Sprite').setPosition(0, 200);
 	goog.events.listen(btn, 'click', function(e) {
-		msg.setText('2');
 		menu.runAction(moveLeft);
 	});
 	btns1.appendChild(btn);
 
 	btn = benchmark.makeButton('Help').setPosition(0, 300);
 	goog.events.listen(btn, 'click', function(e) {
-		msg.setText('3');
-		//benchmark.loadHelpScene();
+		benchmark.loadHelpScene();
 	});
 	btns1.appendChild(btn);
 
 	btn = benchmark.makeButton('Dummy').setPosition(0, 400);
 	goog.events.listen(btn, 'click', function(e) {
-		msg.setText('4');
+		msg.setText('dummy');
 	});
 	btns1.appendChild(btn);
 
